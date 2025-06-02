@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengumuman Kelulusan SD Negeri 12 Bukit Cangang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://cdn.pixabay.com/photo/2016/06/18/17/42/graduation-1462910_1280.jpg') no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      padding: 2rem;
+      color: #1e293b;
+    }
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    .logos img {
+      height: 80px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.2rem;
+      background: rgba(255, 255, 255, 0.8);
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #334155;
+      background: rgba(255, 255, 255, 0.8);
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+    }
+    .input-container {
+      margin: 1rem auto;
+      background: rgba(255, 255, 255, 0.85);
+      display: inline-block;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    input {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #94a3b8;
+      border-radius: 8px;
+      width: 250px;
+    }
+    button {
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    .card {
+      display: none;
+      margin-top: 2rem;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1s ease;
+    }
+    .success {
+      color: #16a34a;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .notfound {
+      color: #dc2626;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+    .motivasi {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-top: 1rem;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div class="logos">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Tut_Wuri_Handayani.png" alt="Logo Kemendikbud">
+    <img src="https://i.ibb.co/ChLpdVY/logo-bukittinggi.png" alt="Logo Kota Bukittinggi">
+    <img src="https://i.ibb.co/ZYW3ym2/logo-sd12.png" alt="Logo SD Negeri 12 Bukit Cangang">
+  </div>
+
+  <h1>Pengumuman Kelulusan</h1>
+  <h2>SD Negeri 12 Bukit Cangang<br>Tahun Pelajaran 2024/2025</h2>
+
+  <div class="input-container">
+    <input type="text" id="nisnInput" placeholder="Masukkan NISN">
+    <button onclick="cekKelulusan()">Cek Kelulusan</button>
+  </div>
+
+  <div id="card" class="card">
+    <h3 id="nama"></h3>
+    <p id="status"></p>
+    <p id="motivasi" class="motivasi"></p>
+  </div>
+
+  <p id="notfound" class="notfound"></p>
+  <canvas id="confettiCanvas" class="confetti"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const dataKelulusan = [
+      { nisn: "3128667616", nama: "Adam Putra", status: "LULUS" },
+      { nisn: "0123447376", nama: "Ahmad Habil", status: "LULUS" },
+      { nisn: "0122738991", nama: "Alika Shakila Navichi Putri", status: "LULUS" },
+      { nisn: "3128010473", nama: "Amira Sofi Yani", status: "LULUS" },
+      { nisn: "0119496188", nama: "Anwar Fauzan", status: "LULUS" },
+      { nisn: "0129207969", nama: "Fakhri Dhiya", status: "LULUS" },
+      { nisn: "0134899477", nama: "Fauziah Lathifa", status: "LULUS" },
+      { nisn: "0132418410", nama: "Gibranul Hakim", status: "LULUS" },
+      { nisn: "0129951974", nama: "Indria Reski Oktarini", status: "LULUS" },
+      { nisn: "0121121517", nama: "Krisfa Naiyira", status: "LULUS" },
+      { nisn: "0122227519", nama: "Mhd Abdiego Pratama", status: "LULUS" },
+      { nisn: "0128413346", nama: "Miftah Hazirah Farzana", status: "LULUS" },
+      { nisn: "0124121438", nama: "Muhammad Hasby", status: "LULUS" },
+      { nisn: "0127264970", nama: "Mutiara Giva Ramadhan", status: "LULUS" },
+      { nisn: "3126778591", nama: "Nabila Suci Ramadhani", status: "LULUS" },
+      { nisn: "0133005500", nama: "Qinaya Aqila Nelson", status: "LULUS" },
+      { nisn: "3122748117", nama: "Raymon Mawlana Akbar", status: "LULUS" },
+      { nisn: "0133583878", nama: "Sadira Rana Wafi", status: "LULUS" },
+      { nisn: "0139304518", nama: "Vanesya Khaira Safana", status: "LULUS" },
+      { nisn: "3127551582", nama: "Viola Salsabilla Rusadi", status: "LULUS" },
+      { nisn: "0126376198", nama: "Widi Hagiawinantha", status: "LULUS" },
+      { nisn: "3129272423", nama: "Yusuf Hibrano", status: "LULUS" },
+      { nisn: "0111251039", nama: "Zahra Nuryusuf", status: "LULUS" }
+    ];
+
+    const motivasiList = [
+      "Teruslah bermimpi, karena mimpi adalah awal dari kesuksesan.",
+      "Langkahmu baru dimulai, masa depan cerah menantimu!",
+      "Jadilah anak yang membawa perubahan baik bagi dunia!",
+      "Pendidikan adalah kunci untuk membuka dunia. Gunakanlah sebaik mungkin!",
+      "Hari ini kamu lulus, besok kamu sukses!"
+    ];
+
+    function cekKelulusan() {
+      const nisn = document.getElementById("nisnInput").value.trim();
+      const hasil = dataKelulusan.find(siswa => siswa.nisn === nisn);
+      const card = document.getElementById("card");
+      const notfound = document.getElementById("notfound");
+
+      if (hasil) {
+        document.getElementById("nama").textContent = hasil.nama;
+        document.getElementById("status").textContent = `Status: ${hasil.status}`;
+        document.getElementById("motivasi").textContent = motivasiList[Math.floor(Math.random() * motivasiList.length)];
+        card.style.display = "block";
+        notfound.textContent = "";
+        jalankanKonfeti();
+      } else {
+        card.style.display = "none";
+        notfound.textContent = "NISN tidak ditemukan. Periksa kembali.";
+      }
+    }
+
+    function jalankanKonfeti() {
+      const duration = 2 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+  </script>
+</body>
+</html>
